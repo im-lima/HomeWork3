@@ -1,6 +1,8 @@
+# hw1.py
 from decouple import config
 from aiogram import Dispatcher, Bot, executor, types
 import logging
+
 
 token = config('TOKEN')
 bot = Bot(token=token)

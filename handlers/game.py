@@ -1,6 +1,8 @@
+# game.py
 from aiogram import types, Dispatcher
 import random
 from config import bot
+
 
 async def game_dice(message: types.Message):
     games = ['⚽', '🎰', '🏀', '🎯', '🎳', '🎲']
