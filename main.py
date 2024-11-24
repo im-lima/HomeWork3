@@ -1,7 +1,9 @@
-from config import bot, dp, Admins
-from aiogram import executor, types
+# main.py
 import logging
+from aiogram import executor
+from config import bot, dp, Admins
 from handlers import commands, quiz, fsm_reg, game, fsm_store, echo
+
 
 async def on_startup(_):
     for admin in Admins:
