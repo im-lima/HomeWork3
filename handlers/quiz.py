@@ -1,3 +1,4 @@
+# quiz.py
 from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import bot
