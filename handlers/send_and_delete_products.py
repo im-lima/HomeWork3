@@ -1,5 +1,5 @@
-# send_and_delete_products.py
 from aiogram import types, Dispatcher
+from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from db import db_main
 from aiogram.types import InputMediaPhoto
@@ -58,17 +58,21 @@ async def send_one_product(callback_query: types.CallbackQuery):
         await callback_query.message.answer(text='В базе товаров нет!')
 
 
-async def delete_product(callback_query: types.CallbackQuery):
-    product_id = int(callback_query.data.split('_')[1])
-    db_main.delete_product(product_id)
-    if callback_query.message.photo:
+async def delete_product(call: types.CallbackQuery):
+    product_id = int(call.data.split('_')[1])
+
+    await db_main.delete_product(product_id)
+
+    if call.message.photo:
         new_caption = 'Товар удален. Обновите список!'
         photo_404 = open('media/photo_404.png', 'rb')
-        await callback_query.message.edit_media(
+        await call.message.edit_media(
             InputMediaPhoto(media=photo_404, caption=new_caption)
         )
     else:
-        await callback_query.message.edit_text('Товар был удален. Обновите список')
+        await call.message.edit_text('Товар был удален. Обновите список')
+
+    await call.message.delete_reply_markup()
 
 
 def register_handlers(dp: Dispatcher):
